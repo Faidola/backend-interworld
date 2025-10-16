@@ -61,6 +61,21 @@ public class UsuarioService {
 
     }
     
+    @Transactional
+    public Usuario saveEscola(UsuarioDTO usuarioDTO) {
+      	
+        Usuario usuario = new Usuario();
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setDataCadastro(LocalDateTime.now());
+        usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+        usuario.setNivelAcesso("ESCOLA");
+        usuario.setStatusUsuario("ATIVO");
+        
+        return usuarioRepository.save(usuario);
+
+    }
+    
     public Usuario update(Integer id, UsuarioDTO usuarioDTO) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
         if (optionalUsuario.isPresent()) {

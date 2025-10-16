@@ -27,12 +27,6 @@ public class UsuarioDTO {
     // Constructors
     public UsuarioDTO() {}
     
-    public UsuarioDTO(String nome, String email, String senha) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-    }
-    
     // Getters and Setters
     public Integer getId() {
         return id;

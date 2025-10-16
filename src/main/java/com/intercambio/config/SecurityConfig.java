@@ -24,7 +24,7 @@ public class SecurityConfig {
             .cors().and()
             .csrf().disable()
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/", "/index", "/home", "/api/**").permitAll()
                 .anyRequest().authenticated()
             );
 
@@ -40,17 +40,18 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Lista de origens permitidas
+        // Inclua todas as origens reais da aplicação React
         List<String> allowedOrigins = Arrays.asList(
             "http://localhost:8080",
-            "http://172.19.0.112:8080",
-            "http://127.0.0.1:8080"
+            "http://172.19.2.66:8080",
+            "http://192.168.56.1:8080",
+            "http://172.25.16.1:8080"
         );
 
         configuration.setAllowedOrigins(allowedOrigins);
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // cuidado com "*" em allowedOrigins se isso estiver true
+        configuration.setAllowCredentials(false); // ou true se usar cookies/autenticação
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
