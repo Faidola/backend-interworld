@@ -1,6 +1,13 @@
 package com.intercambio.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Estudante")
@@ -19,6 +26,9 @@ public class Estudante {
     
     @Column(name = "cpf", length = 14)
     private String cpf;
+    
+    @Column(name = "nome", length = 14)
+    private String nome;
     
     @Column(name = "rg", length = 12)
     private String rg;
@@ -82,7 +92,18 @@ public class Estudante {
         this.cpf = cpf;
     }
     
-    public String getRg() {
+
+	public String getNome() {
+	return nome;
+	
+	}
+	
+	public void setNome(String nome) {
+    this.nome = nome;
+	
+	}
+	
+     public String getRg() {
         return rg;
     }
     
