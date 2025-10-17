@@ -2,6 +2,7 @@ package com.intercambio.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "Usuario")
@@ -44,7 +45,15 @@ public class Usuario {
         this.statusUsuario = "ATIVO";
     }
     
-    // Getters and Setters
+    
+    @Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", nivelAcesso="
+				+ nivelAcesso + ", foto=" + Arrays.toString(foto) + ", dataCadastro=" + dataCadastro
+				+ ", statusUsuario=" + statusUsuario + "]";
+	}
+
+	// Getters and Setters
     public Integer getId() {
         return id;
     }

@@ -98,6 +98,15 @@ public class EstudanteController {
 		return ResponseEntity.ok()
 				.body("Estudante inativada com sucesso!");
 	}
+	
+	@PutMapping("/ativar/{id}")
+	public ResponseEntity<?> ativar(@PathVariable Integer id) {
+
+		estudanteService.ativar(id);
+
+		return ResponseEntity.ok()
+				.body("Estudante ativada com sucesso!");
+	}
     
 	/*
     @PutMapping("/atualizar/{id}")

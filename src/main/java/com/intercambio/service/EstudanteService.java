@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.intercambio.entity.Estudante;
+import com.intercambio.entity.Usuario;
 import com.intercambio.repository.EstudanteRepository;
+import com.intercambio.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -17,6 +19,9 @@ public class EstudanteService {
 
 	@Autowired
 	private EstudanteRepository estudanteRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@Transactional
 	public Estudante saveEstudante(Estudante estudante) {
@@ -65,13 +70,39 @@ public class EstudanteService {
         return null;
     }
     
+    
     @Transactional
     public Estudante inativar(Integer id) {
         Optional<Estudante> optionalEstudante = estudanteRepository.findById(id);
         if (optionalEstudante.isPresent()) {
+        	Optional<Usuario> _usuario = usuarioRepository.findById(optionalEstudante.get().getUsuario().getId());
             Estudante estudante = optionalEstudante.get();
             estudante.setStatusEstudante("INATIVO");
-            return estudanteRepository.save(estudante);
+            
+            Estudante e = estudanteRepository.save(estudante);
+            
+            Usuario usuario = _usuario.get();
+            usuario.setStatusUsuario("INATIVO");     
+            System.out.println(usuarioRepository.save(usuario));
+            return e;
+        }
+        return null;
+    }
+    
+    @Transactional
+    public Estudante ativar(Integer id) {
+        Optional<Estudante> optionalEstudante = estudanteRepository.findById(id);
+        if (optionalEstudante.isPresent()) {
+        	Optional<Usuario> _usuario = usuarioRepository.findById(optionalEstudante.get().getUsuario().getId());
+            Estudante estudante = optionalEstudante.get();
+            estudante.setStatusEstudante("ATIVO");
+            
+            Estudante e = estudanteRepository.save(estudante);
+            
+            Usuario usuario = _usuario.get();
+            usuario.setStatusUsuario("ATIVO");     
+            usuarioRepository.save(usuario);
+            return e;
         }
         return null;
     }

@@ -90,7 +90,7 @@ public class UsuarioController {
     
     
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<Usuario> update(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioService.update(id, usuarioDTO);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
@@ -105,4 +105,13 @@ public class UsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
+    
+	@PutMapping("/{id}/status")
+	public ResponseEntity<?> inativar(@PathVariable Integer id) {
+
+		usuarioService.mudarStatus(id);
+
+		return ResponseEntity.ok()
+				.body("Usuário inativada com sucesso!");
+	}
 } 
